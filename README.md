@@ -1,10 +1,10 @@
-# 💎 Diamond Price Predictor App
+# Diamond Price Predictor App
 This is a web-based machine learning app built with Streamlit that predicts the price of a diamond based on user-selected attributes like carat, cut, color, clarity, and dimensions. The model is trained using a Random Forest Regressor pipeline on a cleaned and feature-engineered diamond dataset.
 
-🚀 Live App
+## Live App
 🔗 https://diamond-price-predictor-app.streamlit.app/
 
-## 🧠 Tech Stack
+## Tech Stack
 - Python 3.11
 - Streamlit
 - scikit-learn
@@ -12,7 +12,7 @@ This is a web-based machine learning app built with Streamlit that predicts the 
 - Random Forest Regressor
 - pickle model deployment
 
-## 📦 How to Run Locally
+## How to Run Locally
 ```
 git clone https://github.com/tajamulkhann/Diamond-Price-Predictor-App`
 cd Diamond-Price-Predictor-App
