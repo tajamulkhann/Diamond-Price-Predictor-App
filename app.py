@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 import streamlit as st
+import streamlit as st
+try:
+    import sklearn
+    import pickle
+except ModuleNotFoundError as e:
+    st.error(f"Missing dependency: {e.name}. Did requirements.txt include it?")
+    st.stop()
+
+# Then load model
+with open("pipeline.pkl", "rb") as f:
+    model = pickle.load(f)
 import pandas as pd
 import pickle
 
