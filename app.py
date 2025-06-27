@@ -1,28 +1,37 @@
 # -*- coding: utf-8 -*-
 import streamlit as st
-import streamlit as st
+import pandas as pd
+import pickle
+
+# Safe dependency check
 try:
     import sklearn
-    import pickle
 except ModuleNotFoundError as e:
     st.error(f"Missing dependency: {e.name}. Did requirements.txt include it?")
     st.stop()
 
-# Then load model
-with open("pipeline.pkl", "rb") as f:
-    model = pickle.load(f)
-import pandas as pd
-import pickle
-
 # Set Streamlit config
 st.set_page_config(page_title="💎 Diamond Price Predictor", page_icon="💎", layout="centered")
 
-# Load the trained model pipeline
+# Load model
 with open("pipeline.pkl", "rb") as f:
     model = pickle.load(f)
 
-# Load data to extract dropdown options
+# Load data
 df = pd.read_csv("Diamond Price Prediction.csv")
+
+# Rename columns to match model training
+df.rename(columns={
+    "Carat(Weight of Daimond)": "carat",
+    "Cut(Quality)": "cut",
+    "Color": "color",
+    "Clarity": "clarity",
+    "Depth": "depth",
+    "Table": "table",
+    "X(length)": "x",
+    "Y(width)": "y",
+    "Z(Depth)": "z"
+}, inplace=True)
 
 # Streamlit App
 def main():
@@ -46,17 +55,17 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
-        carat = st.selectbox("💠 Carat", options=sorted(df["Carat(Weight of Daimond)"].unique()))
-        cut = st.selectbox("✂️ Cut", options=sorted(df["Cut(Quality)"].unique()))
-        color = st.selectbox("🎨 Color", options=sorted(df["Color"].unique()))
-        clarity = st.selectbox("🔍 Clarity", options=sorted(df["Clarity"].unique()))
+        carat = st.selectbox("💠 Carat", sorted(df["carat"].unique()))
+        cut = st.selectbox("✂️ Cut", sorted(df["cut"].unique()))
+        color = st.selectbox("🎨 Color", sorted(df["color"].unique()))
+        clarity = st.selectbox("🔍 Clarity", sorted(df["clarity"].unique()))
 
     with col2:
-        depth = st.selectbox("📏 Depth", options=sorted(df["Depth"].unique()))
-        table = st.selectbox("📐 Table", options=sorted(df["Table"].unique()))
-        x = st.selectbox("📏 X (Length)", options=sorted(df["X(length)"].unique()))
-        y = st.selectbox("📏 Y (Width)", options=sorted(df["Y(width)"].unique()))
-        z = st.selectbox("📏 Z (Depth)", options=sorted(df["Z(Depth)"].unique()))
+        depth = st.selectbox("📏 Depth", sorted(df["depth"].unique()))
+        table = st.selectbox("📐 Table", sorted(df["table"].unique()))
+        x = st.selectbox("📏 X (Length)", sorted(df["x"].unique()))
+        y = st.selectbox("📏 Y (Width)", sorted(df["y"].unique()))
+        z = st.selectbox("📏 Z (Depth)", sorted(df["z"].unique()))
 
     # Prediction Button
     if st.button("🔮 Predict Price"):
